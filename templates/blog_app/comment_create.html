@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block Title %}Comment{% endblock Title %}
+
+{% block Style %}
+    
+{% endblock Style %}
+
+{% block Content %}
+
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="text-center">
+                   <h2 class="lg-title">Post Details and Comment</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section-padding">
+	<div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-dismissible fade show {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+		<div class="row">
+			<div class="col-md-8">
+                <div class="row">
+                    <div class= "col-md-12">
+                        <div class="card mt-5" style="width: 45rem;">
+                            <img src="{{ blog_post.picture.url }}" alt="..." class="card-img-top" style="height:500px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ blog_post.post_title }}</h5>
+                                <p class="card-text">{{ blog_post.post_details }}</p>
+                                <p>Total Like: {{ number_of_likes }} | Total Comment: {{ number_of_comments }} | Total Shares: {{ number_of_shares }}</p>
+                                <p class="card-text">Posted By: {{ blog_post.created_by }} | Created at: {{ blog_post.created_at }}</p>
+                                {% if comments %}
+                                    {% for item in comments %}
+                                        <p> Comment#{{ forloop.counter }}: {{ item.comment_text }} | Commented By: {{ item.created_by }} | Commented on: {{ item.created_at }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                <form method = "POST">{% csrf_token %}
+                                    {{ form.comment_text|as_crispy_field }}
+                                    <button class="btn btn-primary solid blank mt-3" type="submit">Create Post</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>			    
+            </div>
+			<div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock Content %}
+
+{% block Scripts %}
+
+{% endblock Scripts %}

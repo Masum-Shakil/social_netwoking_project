@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block Title %}base{% endblock Title %}</title>
+    {% block Style %}
+    
+    {% endblock Style %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <!-- THEME CSS
+	================================================== -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Themify -->
+    <link rel="stylesheet" href="{% static 'plugins/themify/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick.css' %}">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/owl-carousel/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/magnific-popup/magnific-popup.css' %}">
+    <!-- manin stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="header-top bg-grey justify-content-center">
+   <nav class="navbar navbar-expand-lg navigation">
+      <div class="container">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="ti-menu"></span>
+          </button>
+              <div class="collapse navbar-collapse" id="navbarContent">
+                  <ul id="menu" class="menu navbar-nav ">
+                      <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">My Wall</a></li>
+                      <li class="nav-item"><a href="{% url 'friends_views' %}" class="nav-link">My Friends</a></li>
+                      <li class="nav-item"><a href="{% url 'my_friend_posts' %}" class="nav-link">My Friends Wall</a></li>
+                      <li class="nav-item"><a href="{% url 'view_shared_posts' %}" class="nav-link">Shared Posts</a></li>
+                      <li class="nav-item"><a href="{% url 'custom_logout' %}" class="nav-link">Logout</a></li>
+                  </ul>
+              </div>
+
+                {% if request.path == '/blog/' %}
+                    <div class="text-right search d-none d-lg-block"> 
+                        <div><input class="form-control form-control-name" name="username" id="search" type="text" placeholder="Search here..." ></div>
+                    </div>
+                {% endif %}
+          </div>
+    </nav>
+
+</header>
+
+
+{% block Content %}
+
+{% endblock Content %}
+
+<!-- THEME JAVASCRIPT FILES
+================================================== -->
+<!-- initialize jQuery Library -->
+<script src="{% static 'plugins/jquery/jquery.js' %}"></script>
+<!-- Bootstrap jQuery -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/popper.min.js' %}"></script>
+<!-- Owl caeousel -->
+<script src="{% static 'plugins/owl-carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'plugins/slick-carousel/slick.min.js' %}"></script>
+<script src="{% static 'plugins/magnific-popup/magnific-popup.js' %}"></script>
+<!-- Instagram Feed Js -->
+<script src="{% static 'plugins/instafeed-js/instafeed.min.js' %}"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+<script src="{% static 'plugins/google-map/gmap.js' %}"></script>
+<!-- main js -->
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% block Scripts %}
+
+{% endblock Scripts %}
+
+
+</body>
+</html>

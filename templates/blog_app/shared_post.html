@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block Title %}Shared Post{% endblock Title %}
+
+{% block Style %}
+    
+{% endblock Style %}
+
+{% block Content %}
+
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="text-center">
+                   <h2 class="lg-title">Shared Post</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section-padding">
+	<div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-dismissible fade show {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+		<div class="row">
+			<div class="col-md-8">
+                {% if post_list %}
+                    {% for item in post_list %}
+                    <div class="row">
+                        <div class= "col-md-12">
+                            <div class="card mt-5" style="width: 45rem;">
+                                <img src="{{ item.0.picture.url }}" alt="..." class="card-img-top" style="height:500px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.0.post_title }}</h5>
+                                    <p class="card-text">{{ item.0.post_details }}</p>
+                                    <div class="follow-socials">
+                                        <a href="{% url 'like_post' item.0.id %}"><i class="ti-thumb-up"></i></a>
+                                        <a href="{% url 'comment_post' item.0.id %}" ><i class="ti-comment"></i></a>
+                                    </div>
+                                    <p>Total Like: {{ item.1 }} | Total Comment: {{ item.2 }} | Total Share: {{ item.3 }}</p>
+                                    <p class="card-text">Posted By: {{ item.0.created_by }} | Created at: {{ item.0.created_at }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h1 class="text-center">No posts are shared</h1>
+                {% endif %}
+			    
+            </div>
+			<div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock Content %}
+
+{% block Scripts %}
+
+{% endblock Scripts %}

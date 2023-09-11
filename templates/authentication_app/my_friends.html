@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block Title %}Friendship{% endblock Title %}
+
+{% block Style %}
+    
+{% endblock Style %}
+
+{% block Content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible fade show {% if message.tags %}alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="text-center">
+                   <h2 class="lg-title">My Friendships</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                   <h2 class="lg-title">People You May Know</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+                <h4 class="text-center">My Friends</h4>
+                <div class = "row">
+                    {% if my_friends %}
+                        {% for item in my_friends %}
+                            <div class="col-lg-6 col-md-6">
+                                <article class="post-grid mb-5">
+                                    <div class="post-thumb mb-4">
+                                        {% if item.to_friend_request.profile_picture %}
+                                            <img src="{{ item.to_friend_request.profile_picture.url }}" alt="" class="img-fluid w-100">
+                                        {% else %}
+                                            <img src="{% static 'images/male.jpeg' %}" alt="" class="img-fluid w-100">
+                                        {% endif %}
+                                    </div>
+                                    <span class="cat-name text-color font-sm font-extra text-uppercase letter-spacing">{{ item.to_friend_request.user }}</span>
+                                    <h3 class="post-title mt-1">Bio: {{ item.to_friend_request.bio }}</h3>
+                                    <a href="{% url 'unfriend' item.id %}" class="btn btn-primary solid blank">Remove from Friend List</a>                                   
+                                </article>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h4 class="text-center">You Have No Friends</h4>
+                    {% endif %}
+                </div>
+
+                <h4 class="text-center">Friend Requests</h4>
+                <div class = "row">
+                    {% if friend_request %}
+                        {% for item2 in friend_request %}
+                            <div class="col-lg-6 col-md-6">
+                                <article class="post-grid mb-5">
+                                    <div class="post-thumb mb-4">
+                                        {% if item2.from_friend_request.profile_picture %}
+                                            <img src="{{ item2.from_friend_request.profile_picture.url }}" alt="abc" class="img-fluid w-100">
+                                        {% else %}
+                                            <img src="{% static 'images/male.jpeg' %}" alt="" class="img-fluid w-100">
+                                        {% endif %}
+                                    </div>
+                                    <span class="cat-name text-color font-sm font-extra text-uppercase letter-spacing">{{ item2.from_friend_request.user }}</span>
+                                    <h3 class="post-title mt-1">Bio: {{ item2.from_friend_request.bio }}</h3>
+                                    <div class="text-center">
+                                        <a href="{% url 'accept_friend_request' item2.from_friend_request.id %}" class="btn btn-primary solid blank">Accept Friend Request</a>                                 
+                                        <a href="{% url 'cancel_friend_request' item2.id %}" class="mt-1 btn btn-primary solid blank">Cancel Friend Request</a>    
+                                    </div>                               
+                                </article>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h4 class="text-center">You Have Pending Friend Request</h4>
+                    {% endif %}
+                </div>
+            </div>
+			<div class="col-md-4">
+                {% if people_you_may_know %}
+                    {% for item1 in people_you_may_know %}
+                        <div class="">
+                            <div class="sidebar-wrap">
+                                <div class="sidebar-widget about text-center p-3">
+                                    <div class="about-author">
+                                        {% if item1.profile_picture %}
+                                            <img src="{{item1.profile_picture.url}}" alt="" class="img-fluid">
+                                        {% else %}
+                                            <img src="{% static 'images/male.jpeg' %}" alt="" class="img-fluid">
+                                        {% endif %}
+                                    </div>
+                                    <h4 class="mb-0 mt-4">{{ item1.user }}</h4>
+                                    <p>Bio: {{item1.bio}}</p>
+                                    <div class="sidebar-widget follow mb-5 text-center">
+                                        <div class="follow-socials">
+                                            <a href="{{ item1.facebook_link }}"><i class="ti-facebook"></i></a>
+                                            <a href="{{ item1.linked_in_link }}" ><i class="ti-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'send_friend_request' item1.id %}" class="btn btn-primary solid blank">Send Friend Request</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4 class="text-center">You People to Know</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock Content %}
+
+{% block Scripts %}
+
+{% endblock Scripts %}

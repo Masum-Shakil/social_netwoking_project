@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block Title %}Post Create{% endblock Title %}
+
+{% block Style %}
+    
+{% endblock Style %}
+
+{% block Content %}
+
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                   <h2 class="lg-title">Post Create</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="section-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+                <form enctype="multipart/form-data" method = "POST"> {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{form.post_title|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12">
+                            {{form.post_details|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12">
+                            {{form.picture|as_crispy_field}}
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-primary solid blank mt-3" type="submit">Create Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+			<div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock Content %}
+
+{% block Scripts %}
+
+{% endblock Scripts %}
